@@ -71,6 +71,7 @@ endif
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_FORCE_STATIC_A2DP := true
 
 # gps
 BOARD_USES_GPSWRAPPER := true
@@ -98,7 +99,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 WPA_SUPPLICANT_VERSION := VER_0_6_X
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 # galaxys2 uses bcm4330
-BOARD_WLAN_DEVICE := bcm4329
+BOARD_WLAN_DEVICE := bcm4330
 WIFI_DRIVER_MODULE_PATH     := "/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_STA_PATH     := "/system/vendor/firmware/bcm4330_sta.bin"
 WIFI_DRIVER_FW_AP_PATH      := "/system/vendor/firmware/bcm4330_aps.bin"
@@ -111,9 +112,9 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2att/recovery/recovery_ui.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_HAS_NO_SELECT_BUTTON := true
 
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/c1-common/shbootimg.mk
 
