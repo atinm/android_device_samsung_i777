@@ -17,7 +17,7 @@
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
 USE_CAMERA_STUB := true
-BOARD_USES_GENERIC_AUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
 
 TARGET_CPU_ABI := armeabi-v7a
@@ -59,6 +59,10 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2att/releas
 BOARD_EGL_CFG := device/samsung/galaxys2att/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
+# Audio
+BOARD_USES_AUDIO_LEGACY := true
+BOARD_USE_YAMAHAPLAYER := true
+
 # Camera
 ifeq ($(USE_CAMERA_STUB),false)
 BOARD_CAMERA_LIBRARIES := libcamera
@@ -68,16 +72,17 @@ endif
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
 
 # Wifi
-WPA_SUPPLICANT_VERSION      := VER_0_6_X
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-BOARD_WLAN_DEVICE           := bcm4330
-WIFI_DRIVER_MODULE_PATH     := "/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_STA_PATH     := "/system/vendor/firmware/bcm4330_sta.bin"
-WIFI_DRIVER_FW_AP_PATH      := "/system/vendor/firmware/bcm4330_aps.bin"
-WIFI_DRIVER_MODULE_NAME     := "dhd"
-WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/vendor/firmware/bcm4330_sta.bin nvram_path=/system/etc/nvram_net.txt"
-BOARD_WLAN_DEVICE_REV       := bcm4330_b2
-WIFI_BAND                   := 802_11_ABG
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
+BOARD_WLAN_DEVICE                := bcmdhd
+BOARD_WLAN_DEVICE_REV            := bcm4330_b1
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
+WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/bcm4330_sta.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/bcm4330_aps.bin"
+WIFI_DRIVER_MODULE_NAME          :=  "dhd"
+WIFI_DRIVER_MODULE_ARG           :=  "firmware_path=/system/vendor/firmware/bcm4330_sta.bin nvram_path=/system/etc/nvram_net.txt"
+WIFI_BAND                        := 802_11_ABG
 
 # Bluetooth
 #BOARD_HAVE_BLUETOOTH := true
@@ -87,16 +92,17 @@ WIFI_BAND                   := 802_11_ABG
 BOARD_VOLD_MAX_PARTITIONS := 12
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
+# Vibrator
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxys2att/vibrator/tspdrv.c
+
 # Recovery
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxys2att/recovery/graphics.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := SGH-I777
-
-# dumpstate
-BOARD_LIB_DUMPSTATE := libdumpstate.smdkv310
 
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/galaxys2att/BoardConfigVendor.mk

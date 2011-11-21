@@ -22,11 +22,29 @@ PRODUCT_LOCALES += hdpi
 
 # Init files
 PRODUCT_COPY_FILES := \
-	device/samsung/galaxys2att/init.rc:root/init.rc \
 	device/samsung/galaxys2att/lpm.rc:root/lpm.rc \
+	device/samsung/galaxys2att/init.smdkv310.usb.rc:root/init.smdkv310.usb.rc \
 	device/samsung/galaxys2att/init.smdkc210.rc:root/init.smdkc210.rc \
 	device/samsung/galaxys2att/init.smdkv310.rc:root/init.smdkv310.rc \
 	device/samsung/galaxys2att/ueventd.smdkv310.rc:root/ueventd.smdkv310.rc
+
+# APNs - REMOVE IF VENDOR CYANOGEN IS BACK
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxys2att/configs/apns-conf.xml:system/etc/apns-conf.xml \
+	device/samsung/galaxys2att/configs/spn-conf.xml:system/etc/spn-conf.xml
+
+# Touchscreen
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxys2att/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc
+
+# Keylayout
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxys2att/keylayout/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \
+	device/samsung/galaxys2att/keylayout/Broadcom_Bluetooth_HID.kl:/system/usr/keylayout/Broadcom_Bluetooth_HID.kl \
+	device/samsung/galaxys2att/keylayout/qwerty.kl:/system/usr/keylayout/qwerty.kl \
+	device/samsung/galaxys2att/keylayout/sec_jack.kl:/system/usr/keylayout/sec_jack.kl \
+	device/samsung/galaxys2att/keylayout/sec_key.kl:/system/usr/keylayout/sec_key.kl \
+	device/samsung/galaxys2att/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -38,10 +56,12 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
+	device/samsung/galaxys2att/configs/nvram_net.txt:system/etc/nvram_net.txt \
+	device/samsung/galaxys2att/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/galaxys2att/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES := \
-	wifi.interface=wlan0 \
+	wifi.interface=eth0 \
 	wifi.supplicant_scan_interval=15
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
@@ -53,31 +73,43 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-	charger \
-	charger_res_images \
+    audio.primary.smdkv310 \
+    gps.smdkv310 \
 	smdkv310_hdcp_keys \
 	com.android.future.usb.accessory
 
+# Charger
+#PRODUCT_PACKAGES += \
+#	charger \
+#	charger_res_images
+
 # Camera
 PRODUCT_PACKAGES += \
-    Camera
+	Camera
 
 # Sensors
 PRODUCT_PACKAGES += \
 	lights.smdkv310 \
 	sensors.smdkv310
 
+# Ril
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=samsung \
+    ro.telephony.ril.v3=1 \
+    mobiledata.interfaces=pdp0,eth0,gprs,ppp0
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+	static_busybox \
 	make_ext4fs \
 	setup_fs
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    VisualizationWallpapers \
-    librs_jni
+	LiveWallpapers \
+	LiveWallpapersPicker \
+	VisualizationWallpapers \
+	librs_jni
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \

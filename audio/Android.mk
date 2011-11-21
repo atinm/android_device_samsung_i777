@@ -1,3 +1,4 @@
+#
 # Copyright (C) 2011 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +13,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
+ifeq ($(BOARD_USES_AUDIO_LEGACY),true)
+LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
-LOCAL_C_INCLUDES := frameworks/base/cmds/dumpstate
-
-LOCAL_SRC_FILES := dumpstate.c
-
-LOCAL_MODULE := libdumpstate.$(TARGET_BOARD_PLATFORM)
-
+LOCAL_MODULE := audio.primary.$(TARGET_BOARD_PLATFORM)
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE_TAGS := optional
 
-include $(BUILD_STATIC_LIBRARY)
+LOCAL_SHARED_LIBRARIES := \
+    libcutils \
+    libutils \
+    libmedia \
+    libhardware_legacy
+
+LOCAL_SHARED_LIBRARIES += libdl
+
+LOCAL_SHARED_LIBRARIES += libaudio
+
+LOCAL_STATIC_LIBRARIES := \
+    libmedia_helper
+
+LOCAL_WHOLE_STATIC_LIBRARIES := \
+    libaudiohw_legacy
+
+include $(BUILD_SHARED_LIBRARY)
+
+endif
