@@ -14,5 +14,4 @@
 # limitations under the License.
 #
 
-add_lunch_combo full_galaxys2att-userdebug
 add_lunch_combo full_galaxys2att-eng
