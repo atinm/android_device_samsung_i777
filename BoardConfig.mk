@@ -36,7 +36,7 @@ TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := device/samsung/galaxys2att/recovery.rc
+TARGET_RECOVERY_INITRC := device/samsung/galaxys2/recovery.rc
 
 BOARD_NAND_PAGE_SIZE := 4096 -s 128
 BOARD_KERNEL_PAGESIZE := 4096
@@ -52,11 +52,11 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2att/releasetools/galaxys2att_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2att/releasetools/galaxys2att_img_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2/releasetools/galaxys2_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2/releasetools/galaxys2_img_from_target_files
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/galaxys2att/configs/egl.cfg
+BOARD_EGL_CFG := device/samsung/galaxys2/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Audio
@@ -93,10 +93,10 @@ BOARD_VOLD_MAX_PARTITIONS := 12
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Vibrator
-BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxys2att/vibrator/tspdrv.c
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxys2/vibrator/tspdrv.c
 
 # Recovery
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxys2att/recovery/graphics.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxys2/recovery/graphics.c
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -107,4 +107,4 @@ TARGET_OTA_ASSERT_DEVICE := SGH-I777
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/galaxys2att/BoardConfigVendor.mk
 
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxys2att/shbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxys2/shbootimg.mk
