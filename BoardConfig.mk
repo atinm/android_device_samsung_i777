@@ -106,7 +106,7 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # assert
-TARGET_OTA_ASSERT_DEVICE := SGH-I777
+TARGET_OTA_ASSERT_DEVICE := SGH-I777,galaxys2att
 
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/galaxys2att/BoardConfigVendor.mk
