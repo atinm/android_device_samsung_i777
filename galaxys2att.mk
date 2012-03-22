@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The Android Open-Source Project
+# Copyright (C) 2012 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,32 +18,54 @@ $(call inherit-product, device/samsung/galaxys2/galaxys2_base.mk)
 
 # Keylayout
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxys2att/keylayout/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \
-	device/samsung/galaxys2att/keylayout/Broadcom_Bluetooth_HID.kl:/system/usr/keylayout/Broadcom_Bluetooth_HID.kl \
-	device/samsung/galaxys2att/keylayout/qwerty.kl:/system/usr/keylayout/qwerty.kl \
-	device/samsung/galaxys2att/keylayout/sec_jack.kl:/system/usr/keylayout/sec_jack.kl \
-	device/samsung/galaxys2att/keylayout/sec_key.kl:/system/usr/keylayout/sec_key.kl \
-	device/samsung/galaxys2att/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl
+    device/samsung/galaxys2att/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/samsung/galaxys2att/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
+    device/samsung/galaxys2att/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    device/samsung/galaxys2att/usr/keylayout/max8997-muic.kl:system/usr/keylayout/max8997-muic.kl \
+    device/samsung/galaxys2att/usr/keylayout/melfas-touchkey.kl:system/usr/keylayout/melfas-touchkey.kl \
+    device/samsung/galaxys2att/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/samsung/galaxys2att/usr/keylayout/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl \
+    device/samsung/galaxys2att/usr/keylayout/sec_key.kl:system/usr/keylayout/sec_key.kl \
+    device/samsung/galaxys2att/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_05ac_Product_0239.kl:system/usr/keylayout/Vendor_05ac_Product_0239.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_22b8_Product_093d.kl:system/usr/keylayout/Vendor_22b8_Product_093d.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_028e.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_046d_Product_c216.kl:system/usr/keylayout/Vendor_046d_Product_c216.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_046d_Product_c294.kl:system/usr/keylayout/Vendor_046d_Product_c294.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_046d_Product_c299.kl:system/usr/keylayout/Vendor_046d_Product_c299.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_046d_Product_c532.kl:system/usr/keylayout/Vendor_046d_Product_c532.kl \
+    device/samsung/galaxys2att/usr/keylayout/Vendor_054c_Product_0268.kl:system/usr/keylayout/Vendor_054c_Product_0268.kl
 
-# kernel modules for ramdisk
-RAMDISK_MODULES := $(addprefix device/samsung/galaxys2att/modules/,bthid.ko dhd.ko gspca_main.ko j4fs.ko \
-	scsi_wait_scan.ko Si4709_driver.ko vibrator.ko)
+# Keychars
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxys2att/usr/keychars/Generic.kcm:system/usr/keychars/Generic.kcm \
+    device/samsung/galaxys2att/usr/keychars/qwerty.kcm:system/usr/keychars/qwerty.kcm \
+    device/samsung/galaxys2att/usr/keychars/qwerty2.kcm:system/usr/keychars/qwerty2.kcm \
+    device/samsung/galaxys2att/usr/keychars/Virtual.kcm:system/usr/keychars/Virtual.kcm
+
+# Idc
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxys2att/usr/idc/melfas_ts.idc:system/usr/idc/melfas_ts.idc \
+    device/samsung/galaxys2att/usr/idc/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
+    device/samsung/galaxys2att/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+    device/samsung/galaxys2att/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    device/samsung/galaxys2att/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
+
+# Kernel modules for ramdisk
+RAMDISK_MODULES := $(addprefix device/samsung/galaxys2att/modules/,dhd.ko \
+	scsi_wait_scan.ko Si4709_driver.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(RAMDISK_MODULES),\
 	$(module):root/lib/modules/$(notdir $(module)))
 
-# other kernel modules not in ramdisk
+# Other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(filter-out $(RAMDISK_MODULES),$(wildcard device/samsung/galaxys2att/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
 
-# kernel modules for recovery ramdisk
+# The kernel itself
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2att/modules/j4fs.ko:recovery/root/lib/modules/j4fs.ko
-
-# the kernel itself
-PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2att/kernel:kernel
+    device/samsung/galaxys2att/zImage:kernel
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 $(call inherit-product-if-exists, vendor/samsung/galaxys2att/galaxys2att-vendor.mk)
