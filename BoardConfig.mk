@@ -35,6 +35,7 @@ COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
 endif
 
 TARGET_BOARD_PLATFORM := exynos4
+TARGET_SOC := exynos4210
 TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 TARGET_BOARD_INFO_FILE := device/samsung/galaxys2att/board-info.txt
 
@@ -43,7 +44,7 @@ TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := device/samsung/galaxys2att/recovery.rc
+TARGET_RECOVERY_INITRC := device/samsung/galaxys2/recovery.rc
 
 BOARD_NAND_PAGE_SIZE := 4096 -s 128
 BOARD_KERNEL_PAGESIZE := 4096
@@ -59,28 +60,24 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2att/releasetools/galaxys2att_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2att/releasetools/galaxys2att_img_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2/releasetools/galaxys2_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2/releasetools/galaxys2_img_from_target_files
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/galaxys2att/configs/egl.cfg
+BOARD_EGL_CFG := device/samsung/galaxys2/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
 BOARD_USE_SECTVOUT := true
+BOARD_USES_FIMGAPI := true
 
 # OMX
 BOARD_HAVE_CODEC_SUPPORT := SAMSUNG_CODEC_SUPPORT
-BOARD_USES_PROPRIETARY_OMX := SAMSUNG
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CODEC_SUPPORT
 
 # Audio
 BOARD_USE_YAMAHAPLAYER := true
-
-# Camera
-ifeq ($(USE_CAMERA_STUB),false)
-BOARD_CAMERA_LIBRARIES := libcamera
-endif
 
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
